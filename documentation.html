@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Server API Documentation</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="container mt-5">
+      <h1 class="mb-4">Server API Documentation</h1>
+
+      <div class="card mb-3">
+        <div class="card-header bg-primary text-white">
+          <h2>POST /books/:rollNumber</h2>
+        </div>
+        <div class="card-body">
+          <h5>Description:</h5>
+          <p>Adds a new book to the specified student's list.</p>
+          <h5>URL Parameters:</h5>
+          <ul>
+            <li>
+              <strong>rollNumber</strong> (string): Your LUMS roll number in
+              short form, e.g. 22100063.
+            </li>
+          </ul>
+          <h5>Request Body (Form Data):</h5>
+          <ul>
+            <li>
+              <strong>title</strong> (string): The title of the book.
+              <span class="badge bg-danger">Required</span>
+            </li>
+            <li>
+              <strong>author</strong> (string): The name of the author.
+              <span class="badge bg-danger">Required</span>
+            </li>
+            <li>
+              <strong>price</strong> (number): The price of the book.
+              <span class="badge bg-danger">Required</span>
+            </li>
+          </ul>
+          <h5>Response:</h5>
+          <pre>
+{
+    "message": "Book added for student 22100063",
+    "book": {
+        "title": "Book Title",
+        "author": "Author Name",
+        "price": 19.99
+    }
+}
+                </pre
+          >
+          <h5>Example Request:</h5>
+          <pre>
+POST /books/22100063
+Content-Type: application/x-www-form-urlencoded
+
+title=Book+Title&author=Author+Name&price=19.99
+                </pre
+          >
+        </div>
+      </div>
+
+      <div class="card mb-3">
+        <div class="card-header bg-success text-white">
+          <h2>GET /books/:rollNumber</h2>
+        </div>
+        <div class="card-body">
+          <h5>Description:</h5>
+          <p>Retrieves the list of books for the specified student.</p>
+          <h5>URL Parameters:</h5>
+          <ul>
+            <li>
+              <strong>rollNumber</strong> (string): The roll number of the
+              student.
+            </li>
+          </ul>
+          <h5>Response:</h5>
+          <pre>
+{
+    "rollNumber": "22100063",
+    "books": [
+        {
+            "title": "Book Title",
+            "author": "Author Name",
+            "price": 19.99
+        },
+        ...
+    ]
+}
+                </pre
+          >
+          <h5>Example Request:</h5>
+          <pre>
+GET /books/22100063
+                </pre
+          >
+        </div>
+      </div>
+
+      <div class="mt-5">
+        <p class="text-muted">&copy; 2024 Rohan's Web Dev Course Cohort 5</p>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>

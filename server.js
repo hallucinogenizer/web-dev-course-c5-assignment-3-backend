@@ -1,5 +1,6 @@
 const express = require('express');
 const cors = require('cors');  // Import the CORS middleware
+const path = require("path")
 const app = express();
 const port = 3000;
 
@@ -43,6 +44,10 @@ app.get('/books/:rollNumber', (req, res) => {
 
     res.status(200).send({ rollNumber, books });
 });
+
+app.get("/", (req, res) => {
+    res.sendFile(path.join(__dirname, "/documentation.html"))
+})
 
 // Start the server
 app.listen(port, () => {
