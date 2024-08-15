@@ -1,11 +1,18 @@
 const express = require('express');
-const cors = require('cors');  // Import the CORS middleware
-const path = require("path")
+const multer = require('multer');
+const cors = require('cors');
+
 const app = express();
 const port = 3000;
 
-// Enable CORS for all routes
-app.use(cors());
+// Middleware
+app.use(cors()); // Allow requests from all sources
+app.use(express.json()); // For JSON payloads
+app.use(express.urlencoded({ extended: true })); // For URL-encoded payloads
+
+// Configure multer
+const upload = multer();
+
 
 // Middleware to parse form data
 app.use(express.urlencoded({ extended: true }));
@@ -14,9 +21,10 @@ app.use(express.urlencoded({ extended: true }));
 const studentBooks = {};
 
 // Route to add a book for a specific student
-app.post('/books/:rollNumber', (req, res) => {
+app.post('/books/:rollNumber', upload.none(),(req, res) => {
     const { rollNumber } = req.params;
     const { title, author, price } = req.body;
+    console.log(req.body)
 
     // Validate the request body
     if (!title || !author || !price) {
