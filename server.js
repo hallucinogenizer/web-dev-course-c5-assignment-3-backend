@@ -1,7 +1,8 @@
 const express = require('express');
 const multer = require('multer');
-const path = require("path")
+const path = require("path");
 const cors = require('cors');
+const Fuse = require('fuse.js');
 
 const app = express();
 const port = 3000;
@@ -14,7 +15,6 @@ app.use(express.urlencoded({ extended: true })); // For URL-encoded payloads
 // Configure multer
 const upload = multer();
 
-
 // Middleware to parse form data
 app.use(express.urlencoded({ extended: true }));
 
@@ -22,10 +22,9 @@ app.use(express.urlencoded({ extended: true }));
 const studentBooks = {};
 
 // Route to add a book for a specific student
-app.post('/books/:rollNumber', upload.none(),(req, res) => {
+app.post('/books/:rollNumber', upload.none(), (req, res) => {
     const { rollNumber } = req.params;
     const { title, author, price } = req.body;
-    console.log(req.body)
 
     // Validate the request body
     if (!title || !author || !price) {
@@ -54,9 +53,34 @@ app.get('/books/:rollNumber', (req, res) => {
     res.status(200).send({ rollNumber, books });
 });
 
+// New fuzzy search endpoint for books by title or author
+app.post('/books/search/:rollNumber', (req, res) => {
+    const { rollNumber } = req.params;
+    const { query } = req.query; // search query string sent by the frontend
+
+    // If no books exist for this student, return an empty array
+    const books = studentBooks[rollNumber] || [];
+
+    // If there's no search query provided, return all books
+    if (!query) {
+        return res.status(200).send({ rollNumber, books });
+    }
+
+    // Configure Fuse.js for fuzzy search
+    const fuse = new Fuse(books, {
+        keys: ['title', 'author'], // Search by title and author
+        threshold: 0.4, // Adjust the fuzziness threshold (0 = exact match, 1 = very fuzzy)
+    });
+
+    // Perform the search
+    const results = fuse.search(query).map(result => result.item);
+
+    res.status(200).send({ rollNumber, books: results });
+});
+
 app.get("/", (req, res) => {
-    res.sendFile(path.join(__dirname, "/documentation.html"))
-})
+    res.sendFile(path.join(__dirname, "/documentation.html"));
+});
 
 // Start the server
 app.listen(port, () => {
