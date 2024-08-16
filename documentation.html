@@ -11,39 +11,56 @@
   </head>
   <body>
     <div class="container mt-5">
-      <h1 class="mb-4">Server API Documentation</h1>
+      <h1 class="mb-4 text-center">Server API Documentation</h1>
 
-      <div class="card mb-3">
-        <div class="card-header bg-primary text-white">
-          <h2>POST /books/:rollNumber</h2>
-        </div>
-        <div class="card-body">
-          <h5>Description:</h5>
-          <p>Adds a new book to the specified student's list.</p>
-          <h5>URL Parameters:</h5>
-          <ul>
-            <li>
-              <strong>rollNumber</strong> (string): Your LUMS roll number in
-              short form, e.g. 22100063.
-            </li>
-          </ul>
-          <h5>Request Body (Form Data):</h5>
-          <ul>
-            <li>
-              <strong>title</strong> (string): The title of the book.
-              <span class="badge bg-danger">Required</span>
-            </li>
-            <li>
-              <strong>author</strong> (string): The name of the author.
-              <span class="badge bg-danger">Required</span>
-            </li>
-            <li>
-              <strong>price</strong> (number): The price of the book.
-              <span class="badge bg-danger">Required</span>
-            </li>
-          </ul>
-          <h5>Response:</h5>
-          <pre>
+      <!-- POST /books/:rollNumber -->
+      <div class="accordion" id="apiAccordion">
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="postBooksHeader">
+            <button
+              class="accordion-button bg-primary text-white"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#postBooksBody"
+              aria-expanded="true"
+              aria-controls="postBooksBody"
+            >
+              POST /books/:rollNumber
+            </button>
+          </h2>
+          <div
+            id="postBooksBody"
+            class="accordion-collapse collapse show"
+            aria-labelledby="postBooksHeader"
+            data-bs-parent="#apiAccordion"
+          >
+            <div class="accordion-body">
+              <h5>Description:</h5>
+              <p>Adds a new book to the specified student's list.</p>
+              <h5>URL Parameters:</h5>
+              <ul>
+                <li>
+                  <strong>rollNumber</strong> (string): Your LUMS roll number in
+                  short form, e.g. 22100063.
+                </li>
+              </ul>
+              <h5>Request Body (Form Data):</h5>
+              <ul>
+                <li>
+                  <strong>title</strong> (string): The title of the book.
+                  <span class="badge bg-danger">Required</span>
+                </li>
+                <li>
+                  <strong>author</strong> (string): The name of the author.
+                  <span class="badge bg-danger">Required</span>
+                </li>
+                <li>
+                  <strong>price</strong> (number): The price of the book.
+                  <span class="badge bg-danger">Required</span>
+                </li>
+              </ul>
+              <h5>Response:</h5>
+              <pre class="bg-light p-3 rounded">
 {
     "message": "Book added for student 22100063",
     "book": {
@@ -52,35 +69,50 @@
         "price": 19.99
     }
 }
-                </pre
-          >
-          <h5>Example Request:</h5>
-          <pre>
+              </pre>
+              <h5>Example Request:</h5>
+              <pre class="bg-light p-3 rounded">
 POST /books/22100063
 Content-Type: application/x-www-form-urlencoded
 
 title=Book+Title&author=Author+Name&price=19.99
-                </pre
-          >
+              </pre>
+            </div>
+          </div>
         </div>
-      </div>
 
-      <div class="card mb-3">
-        <div class="card-header bg-success text-white">
-          <h2>GET /books/:rollNumber</h2>
-        </div>
-        <div class="card-body">
-          <h5>Description:</h5>
-          <p>Retrieves the list of books for the specified student.</p>
-          <h5>URL Parameters:</h5>
-          <ul>
-            <li>
-              <strong>rollNumber</strong> (string): The roll number of the
-              student.
-            </li>
-          </ul>
-          <h5>Response:</h5>
-          <pre>
+        <!-- GET /books/:rollNumber -->
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="getBooksHeader">
+            <button
+              class="accordion-button bg-success text-white collapsed"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#getBooksBody"
+              aria-expanded="false"
+              aria-controls="getBooksBody"
+            >
+              GET /books/:rollNumber
+            </button>
+          </h2>
+          <div
+            id="getBooksBody"
+            class="accordion-collapse collapse"
+            aria-labelledby="getBooksHeader"
+            data-bs-parent="#apiAccordion"
+          >
+            <div class="accordion-body">
+              <h5>Description:</h5>
+              <p>Retrieves the list of books for the specified student.</p>
+              <h5>URL Parameters:</h5>
+              <ul>
+                <li>
+                  <strong>rollNumber</strong> (string): The roll number of the
+                  student.
+                </li>
+              </ul>
+              <h5>Response:</h5>
+              <pre class="bg-light p-3 rounded">
 {
     "rollNumber": "22100063",
     "books": [
@@ -92,17 +124,81 @@ title=Book+Title&author=Author+Name&price=19.99
         ...
     ]
 }
-                </pre
-          >
-          <h5>Example Request:</h5>
-          <pre>
+              </pre>
+              <h5>Example Request:</h5>
+              <pre class="bg-light p-3 rounded">
 GET /books/22100063
-                </pre
+              </pre>
+            </div>
+          </div>
+        </div>
+
+        <!-- GET /books/search/:rollNumber -->
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="searchBooksHeader">
+            <button
+              class="accordion-button bg-info text-white collapsed"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#searchBooksBody"
+              aria-expanded="false"
+              aria-controls="searchBooksBody"
+            >
+              GET /books/search/:rollNumber
+            </button>
+          </h2>
+          <div
+            id="searchBooksBody"
+            class="accordion-collapse collapse"
+            aria-labelledby="searchBooksHeader"
+            data-bs-parent="#apiAccordion"
           >
+            <div class="accordion-body">
+              <h5>Description:</h5>
+              <p>
+                Searches for books by title or author for a specific student
+                using fuzzy search.
+              </p>
+              <h5>URL Parameters:</h5>
+              <ul>
+                <li>
+                  <strong>rollNumber</strong> (string): The roll number of the
+                  student.
+                </li>
+              </ul>
+              <h5>Query Parameters:</h5>
+              <ul>
+                <li>
+                  <strong>query</strong> (string): The search term for the book
+                  title or author.
+                  <span class="badge bg-danger">Required</span>
+                </li>
+              </ul>
+              <h5>Response:</h5>
+              <pre class="bg-light p-3 rounded">
+{
+    "rollNumber": "22100063",
+    "books": [
+        {
+            "title": "Fuzzy Matched Book Title",
+            "author": "Fuzzy Author Name",
+            "price": 19.99
+        },
+        ...
+    ]
+}
+              </pre>
+              <h5>Example Request:</h5>
+              <pre class="bg-light p-3 rounded">
+GET /books/search/22100063?query=Harry
+              </pre>
+            </div>
+          </div>
         </div>
       </div>
 
-      <div class="mt-5">
+      <!-- Footer -->
+      <div class="mt-5 text-center">
         <p class="text-muted">&copy; 2024 Rohan's Web Dev Course Cohort 5</p>
       </div>
     </div>
