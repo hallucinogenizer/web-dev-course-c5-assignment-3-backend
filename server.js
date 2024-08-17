@@ -26,6 +26,8 @@ app.post('/books/:rollNumber', upload.none(), (req, res) => {
     const { rollNumber } = req.params;
     const { title, author, price } = req.body;
 
+    console.log(req.body)
+
     // Validate the request body
     if (!title || !author || !price) {
         return res.status(400).send({ message: 'Title, author, and price are required.' });
@@ -54,7 +56,7 @@ app.get('/books/:rollNumber', (req, res) => {
 });
 
 // New fuzzy search endpoint for books by title or author
-app.post('/books/search/:rollNumber', (req, res) => {
+app.get('/books/search/:rollNumber', (req, res) => {
     const { rollNumber } = req.params;
     const { query } = req.query; // search query string sent by the frontend
 
